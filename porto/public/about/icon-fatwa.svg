@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="380" viewBox="0 0 500 380">
+  <rect width="500" height="380" fill="#000"/>
+  <g
+    fill="#fff"
+    font-family="Arial Black, Arial, Helvetica, sans-serif"
+    font-weight="800"
+    font-size="26"
+    letter-spacing="2"
+  >
+    <text x="48" y="110">Fatwa.</text>
+    <text x="300" y="110">Fatwa.</text>
+    <text x="48" y="290">Fatwa.</text>
+    <text x="300" y="290">Fatwa.</text>
+  </g>
+</svg>
