@@ -47,14 +47,14 @@ export default function ProfessionalPage() {
       sparkRadius={16}
       sparkSize={8}
       duration={320}
-      className="!h-auto min-h-dvh w-full"
+      className="h-auto! min-h-dvh w-full"
     >
       <div className="professional-page relative min-h-dvh bg-transparent text-[#efeaf6]">
         <PersistedShipCursor />
         <ProfessionalAtmosphere />
         {/* Static CSS grain — no animated Noise canvas */}
         <div
-          className="professional-grain pointer-events-none fixed inset-0 z-[25] opacity-[0.04] mix-blend-overlay"
+          className="professional-grain pointer-events-none fixed inset-0 z-25 opacity-[0.04] mix-blend-overlay"
           aria-hidden
         />
 
@@ -114,7 +114,7 @@ export default function ProfessionalPage() {
                 <SectionLabel>01 — Introduction</SectionLabel>
                 <h1 className="mt-4 font-display text-4xl leading-[1.05] font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-[4.25rem]">
                   <GradientText
-                    className="!inline !justify-start text-left"
+                    className="inline! justify-start! text-left"
                     colors={["#f5d0fe", "#e879f9", "#c755f7", "#a78bfa"]}
                     animationSpeed={8}
                     direction="horizontal"
@@ -242,10 +242,10 @@ export default function ProfessionalPage() {
                 {certificates.map((cert) => (
                   <li key={cert.id}>
                     <SpotlightCard
-                      className="h-full !rounded-xl !border-white/10 !bg-[#121018] !p-0"
+                      className="h-full rounded-xl! border-white/10! bg-[#121018]! p-0!"
                       spotlightColor="rgba(199, 85, 247, 0.22)"
                     >
-                      <article className="relative z-[1] flex h-full flex-col p-5">
+                      <article className="relative z-1 flex h-full flex-col p-5">
                         <div className="flex items-start justify-between gap-3">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
@@ -253,7 +253,7 @@ export default function ProfessionalPage() {
                             alt="HackerRank"
                             width={140}
                             height={28}
-                            className="h-5 w-auto max-w-[9rem] object-contain object-left sm:h-6"
+                            className="h-5 w-auto max-w-36 object-contain object-left sm:h-6"
                           />
                           <time className="shrink-0 font-mono text-[9px] tracking-wider text-white/40 uppercase">
                             {cert.date}
@@ -287,7 +287,7 @@ export default function ProfessionalPage() {
               <SectionLabel>08 — Contact</SectionLabel>
               <h2 className="mt-4 max-w-xl font-display text-3xl font-semibold tracking-tight sm:text-4xl">
                 <GradientText
-                  className="!inline !justify-start text-left"
+                  className="inline! justify-start! text-left!"
                   colors={["#f5d0fe", "#e879f9", "#c755f7", "#a78bfa"]}
                   animationSpeed={6}
                 >
