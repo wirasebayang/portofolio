@@ -214,10 +214,70 @@ html.ship-cursor-active * {
   background-size: 180px 180px;
 }
 
+/* Zero-g drift — soft arcade float for landing UI */
+@keyframes zero-g-a {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  35% {
+    transform: translate(5px, -10px) rotate(1deg);
+  }
+  70% {
+    transform: translate(-4px, 7px) rotate(-0.8deg);
+  }
+}
+
+@keyframes zero-g-b {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  40% {
+    transform: translate(-7px, -8px) rotate(-1.1deg);
+  }
+  75% {
+    transform: translate(5px, 8px) rotate(0.85deg);
+  }
+}
+
+@keyframes zero-g-c {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  30% {
+    transform: translate(4px, 8px) rotate(0.75deg);
+  }
+  65% {
+    transform: translate(-5px, -7px) rotate(-0.9deg);
+  }
+}
+
+.zero-g-a {
+  animation: zero-g-a 4.8s ease-in-out infinite;
+  will-change: transform;
+}
+
+.zero-g-b {
+  animation: zero-g-b 5.6s ease-in-out infinite;
+  animation-delay: -1.4s;
+  will-change: transform;
+}
+
+.zero-g-c {
+  animation: zero-g-c 6.2s ease-in-out infinite;
+  animation-delay: -2.8s;
+  will-change: transform;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .professional-page .blur-text span,
   .professional-page [class*="parallax"],
-  .professional-page [class*="scroller"] {
+  .professional-page [class*="scroller"],
+  .zero-g-a,
+  .zero-g-b,
+  .zero-g-c {
     animation: none !important;
     transition: none !important;
     filter: none !important;
