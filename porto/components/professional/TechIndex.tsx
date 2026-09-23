@@ -2,6 +2,8 @@
 
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import LogoLoop from "@/components/react-bits/LogoLoop";
+import BlurText from "@/components/react-bits/BlurText";
 import {
   techCategories,
   technologies,
@@ -9,9 +11,16 @@ import {
   type TechItem,
 } from "@/lib/professional-content";
 
+function iconSrc(icon: string, tint?: string) {
+  if (icon.startsWith("/") || icon.startsWith("http")) return icon;
+  return tint
+    ? `https://cdn.simpleicons.org/${icon}/${tint}`
+    : `https://cdn.simpleicons.org/${icon}`;
+}
+
 function TechIcon({ item }: { item: TechItem }) {
   const [failed, setFailed] = useState(false);
-  const src = `https://cdn.simpleicons.org/${item.icon}`;
+  const src = iconSrc(item.icon);
 
   if (failed) {
     return (
@@ -35,6 +44,23 @@ function TechIcon({ item }: { item: TechItem }) {
   );
 }
 
+/** Featured logos for the continuous loop (unique icons) */
+const LOOP_LOGOS = (() => {
+  const seen = new Set<string>();
+  const items: { src: string; alt: string; title: string }[] = [];
+  for (const t of technologies) {
+    if (seen.has(t.icon)) continue;
+    seen.add(t.icon);
+    items.push({
+      src: iconSrc(t.icon, "e879f9"),
+      alt: t.name,
+      title: t.name,
+    });
+    if (items.length >= 18) break;
+  }
+  return items;
+})();
+
 /** ~2 full rows on xl (6 cols); 3rd row peeks under the blur */
 const COLLAPSE_MIN = 12;
 
@@ -56,10 +82,13 @@ export default function TechIndex() {
           <p className="font-mono text-[10px] tracking-[0.22em] text-fuchsia-400/70 uppercase sm:text-[11px]">
             03 — Stack
           </p>
-          <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-            The tools behind{" "}
-            <span className="text-fuchsia-400">the work.</span>
-          </h2>
+          <BlurText
+            text="The tools behind the work."
+            delay={90}
+            animateBy="words"
+            direction="top"
+            className="mt-4 font-display text-3xl font-semibold tracking-tight text-white sm:text-4xl"
+          />
           <p className="mt-4 text-base leading-relaxed text-white/55">
             From the interface to the database, these are the technologies I
             use across my projects.
@@ -68,6 +97,22 @@ export default function TechIndex() {
         <p className="font-mono text-[10px] tracking-wider text-white/40 uppercase">
           {technologies.length} technologies
         </p>
+      </div>
+
+      <div className="relative mt-10 overflow-hidden py-4">
+        <LogoLoop
+          logos={LOOP_LOGOS}
+          speed={80}
+          direction="left"
+          logoHeight={36}
+          gap={40}
+          pauseOnHover
+          fadeOut
+          fadeOutColor="#08060c"
+          scaleOnHover
+          ariaLabel="Technology logos"
+          className="opacity-90"
+        />
       </div>
 
       <div className="mt-10">
@@ -105,7 +150,9 @@ export default function TechIndex() {
       <div className="relative mt-10">
         <div
           className={
-            needsCollapse ? "max-h-[22.5rem] overflow-hidden sm:max-h-[24rem]" : ""
+            needsCollapse
+              ? "max-h-[22.5rem] overflow-hidden sm:max-h-[24rem]"
+              : ""
           }
         >
           <motion.ul
@@ -121,16 +168,18 @@ export default function TechIndex() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.96 }}
                   transition={{ duration: 0.2 }}
-                  className="flex flex-col items-center gap-3 rounded-xl border border-white/8 bg-[#121018] px-3 py-5 text-center"
+                  className="list-none"
                 >
-                  <TechIcon item={item} />
-                  <div>
-                    <p className="font-display text-sm font-semibold text-white">
-                      {item.name}
-                    </p>
-                    <p className="mt-1 font-mono text-[8px] tracking-wider text-white/35 uppercase">
-                      {item.category}
-                    </p>
+                  <div className="flex h-full flex-col items-center gap-3 rounded-xl border border-white/8 bg-[#121018] px-3 py-5 text-center transition-colors hover:border-fuchsia-400/25">
+                    <TechIcon item={item} />
+                    <div>
+                      <p className="font-display text-sm font-semibold text-white">
+                        {item.name}
+                      </p>
+                      <p className="mt-1 font-mono text-[8px] tracking-wider text-white/35 uppercase">
+                        {item.category}
+                      </p>
+                    </div>
                   </div>
                 </motion.li>
               ))}

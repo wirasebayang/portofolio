@@ -17,9 +17,9 @@ export default function HeroProfileCard() {
         enableTilt
         enableMobileTilt={false}
         behindGlowEnabled
-        behindGlowColor="rgba(199, 85, 247, 0.4)"
-        behindGlowSize="50%"
-        innerGradient="linear-gradient(145deg, #60496e8c 0%, #c755f744 100%)"
+        behindGlowColor="rgba(199, 85, 247, 0.45)"
+        behindGlowSize="55%"
+        innerGradient="linear-gradient(160deg, #050208 0%, #12081c 35%, #3b0764 65%, #c755f7 100%)"
         onContactClick={() => {
           document
             .getElementById("contact")

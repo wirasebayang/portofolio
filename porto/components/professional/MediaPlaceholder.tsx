@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type MediaPlaceholderProps = {
   /** Expected public path, e.g. /projects/shelter/cover.jpg */
@@ -15,7 +15,7 @@ type MediaPlaceholderProps = {
 
 /**
  * Shows project/about media when the file exists; otherwise a labeled placeholder.
- * Replace files under public/ — no code change needed once cover.jpg is added.
+ * Handles cached images (onLoad can fire before React attaches the handler).
  */
 export default function MediaPlaceholder({
   src,
@@ -25,8 +25,18 @@ export default function MediaPlaceholder({
   aspect = "video",
   noBackground = false,
 }: MediaPlaceholderProps) {
+  const imgRef = useRef<HTMLImageElement>(null);
   const [failed, setFailed] = useState(false);
   const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    setFailed(false);
+    setLoaded(false);
+    const img = imgRef.current;
+    if (img?.complete && img.naturalWidth > 0) {
+      setLoaded(true);
+    }
+  }, [src]);
 
   const aspectClass =
     aspect === "square"
@@ -50,22 +60,26 @@ export default function MediaPlaceholder({
         // Native img: optional files under public/ — Next Image needs known files
         // eslint-disable-next-line @next/next/no-img-element
         <img
+          ref={imgRef}
           src={src}
           alt={label}
           className={[
-            "absolute inset-0 h-full w-full object-cover transition-opacity duration-500",
+            "absolute inset-0 z-[1] h-full w-full object-cover transition-opacity duration-500",
             loaded ? "opacity-100" : "opacity-0",
             noBackground ? "object-contain" : "object-cover",
           ].join(" ")}
           onLoad={() => setLoaded(true)}
-          onError={() => setFailed(true)}
+          onError={() => {
+            setFailed(true);
+            setLoaded(false);
+          }}
         />
       )}
 
       {showPlaceholder && (
         <div
           className={[
-            "absolute inset-0 flex flex-col items-center justify-center gap-2 px-4 text-center",
+            "absolute inset-0 z-0 flex flex-col items-center justify-center gap-2 px-4 text-center",
             noBackground
               ? "border border-dashed border-white/15 bg-transparent"
               : "bg-[linear-gradient(145deg,#14101c_0%,#1a1228_50%,#0e0c14_100%)]",
