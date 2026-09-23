@@ -1,0 +1,227 @@
+@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Press+Start+2P&display=swap");
+@import "tailwindcss";
+
+:root {
+  --background: #05010a;
+  --foreground: #f3e8ff;
+  --accent: #c755f7;
+  --font-display: "Chakra Petch", system-ui, sans-serif;
+  --font-arcade: "Press Start 2P", monospace;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-display);
+  --font-display: var(--font-display);
+  --font-arcade: var(--font-arcade);
+  --font-mono: var(--font-arcade);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-display);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-arcade {
+  font-family: var(--font-arcade);
+}
+
+.hero-pixel {
+  font-family: var(--font-arcade), monospace;
+  font-size: 64px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+@keyframes arcade-blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0.2;
+  }
+}
+
+.arcade-blink {
+  animation: arcade-blink 1.15s steps(1, end) infinite;
+}
+
+/* Giant watermark like depth layer (friend site uses huge soft "DEV") */
+.text-watermark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.08em;
+  line-height: 0.85;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(232, 121, 249, 0.18);
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Outline type for secondary display line */
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(250, 245, 255, 0.55);
+}
+
+@media (min-width: 640px) {
+  .text-outline {
+    -webkit-text-stroke-width: 2px;
+  }
+  .text-watermark {
+    -webkit-text-stroke-width: 2px;
+  }
+}
+
+/* ——— Purple lava CTA ——— */
+.lava-btn {
+  box-shadow:
+    0 0 0 1px rgba(232, 121, 249, 0.35),
+    0 0 28px rgba(168, 85, 247, 0.45),
+    0 8px 24px rgba(76, 29, 149, 0.55);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lava-btn:hover {
+  box-shadow:
+    0 0 0 1px rgba(240, 171, 252, 0.55),
+    0 0 40px rgba(192, 38, 211, 0.65),
+    0 10px 28px rgba(88, 28, 135, 0.65);
+}
+
+.lava-btn__field {
+  background: linear-gradient(160deg, #2e1065 0%, #581c87 40%, #86198f 100%);
+  filter: contrast(1.15);
+}
+
+.lava-btn__blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(14px);
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+
+.lava-btn__blob--a {
+  width: 70%;
+  height: 120%;
+  left: -15%;
+  top: -30%;
+  background: radial-gradient(circle, #f0abfc 0%, #c026d3 45%, transparent 70%);
+  animation: lava-drift-a 4.5s ease-in-out infinite;
+}
+
+.lava-btn__blob--b {
+  width: 65%;
+  height: 110%;
+  right: -20%;
+  bottom: -35%;
+  background: radial-gradient(circle, #e879f9 0%, #7e22ce 50%, transparent 72%);
+  animation: lava-drift-b 5.2s ease-in-out infinite;
+}
+
+.lava-btn__blob--c {
+  width: 50%;
+  height: 90%;
+  left: 30%;
+  top: 10%;
+  background: radial-gradient(circle, #fae8ff 0%, #a855f7 40%, transparent 68%);
+  opacity: 0.85;
+  animation: lava-drift-c 3.8s ease-in-out infinite;
+}
+
+.lava-btn__blob--d {
+  width: 40%;
+  height: 70%;
+  left: 10%;
+  bottom: -10%;
+  background: radial-gradient(circle, #d946ef 0%, #4c1d95 55%, transparent 70%);
+  animation: lava-drift-d 6s ease-in-out infinite;
+}
+
+@keyframes lava-drift-a {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(18%, 22%) scale(1.15);
+  }
+}
+
+@keyframes lava-drift-b {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1.05);
+  }
+  50% {
+    transform: translate(-20%, -15%) scale(1.2);
+  }
+}
+
+@keyframes lava-drift-c {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(0.95);
+  }
+  33% {
+    transform: translate(-12%, 10%) scale(1.1);
+  }
+  66% {
+    transform: translate(14%, -8%) scale(1);
+  }
+}
+
+@keyframes lava-drift-d {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(25%, -20%) scale(1.25);
+  }
+}
+
+/* Custom ship cursor — hide OS cursor on fine pointers */
+html.ship-cursor-active,
+html.ship-cursor-active * {
+  cursor: none !important;
+}
+
+/* Static film grain (no animated canvas) */
+.professional-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .professional-page .blur-text span,
+  .professional-page [class*="parallax"],
+  .professional-page [class*="scroller"] {
+    animation: none !important;
+    transition: none !important;
+    filter: none !important;
+    transform: none !important;
+  }
+}
+
