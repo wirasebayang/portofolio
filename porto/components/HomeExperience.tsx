@@ -36,7 +36,8 @@ export default function HomeExperience() {
   );
   const [menuTheme, setMenuTheme] = useState<ThemeId>(readStoredTheme);
 
-  const showWarp = phase !== "menu" || skinForTheme(menuTheme) === "arcade";
+  const menuSkin = skinForTheme(menuTheme);
+  const showWarp = phase !== "menu" || menuSkin === "arcade";
 
   const skipToMenu = useCallback(() => {
     introPlayedThisLoad = true;
@@ -97,7 +98,11 @@ export default function HomeExperience() {
     <div
       className={[
         "relative h-dvh w-full overflow-hidden",
-        showWarp ? "bg-[#05010a]" : "bg-white",
+        showWarp
+          ? "bg-[#05010a]"
+          : menuSkin === "dad"
+            ? "bg-[#3fa9ff]"
+            : "bg-white",
       ].join(" ")}
     >
       <AnimatePresence>

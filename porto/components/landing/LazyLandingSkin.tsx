@@ -156,7 +156,7 @@ export default function LazyLandingSkin({
           </button>
         ) : (
           <p style={{ margin: 0, color: "#999", fontSize: 14 }}>
-            can&apos;t start this one yet. pick professional or lazy.
+            can&apos;t start this one yet. pick professional, dad, or lazy.
           </p>
         )}
 

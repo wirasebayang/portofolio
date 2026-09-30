@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import ArcadeLandingSkin from "@/components/landing/ArcadeLandingSkin";
+import DadLandingSkin from "@/components/landing/DadLandingSkin";
 import LazyLandingSkin from "@/components/landing/LazyLandingSkin";
 import {
   THEME_STORAGE_KEY,
@@ -79,7 +80,7 @@ export default function ProfessionalLanding({
     return () => window.removeEventListener("keydown", onKey);
   }, [menuView]);
 
-  // Leaving lazy skin? reset ship submenu so arcade opens clean
+  // Leaving a non-arcade skin? reset ship submenu so arcade opens clean
   useEffect(() => {
     if (skin !== "arcade") setMenuView("mode");
   }, [skin]);
@@ -114,6 +115,22 @@ export default function ProfessionalLanding({
           transition={{ duration: 0.28 }}
         >
           <LazyLandingSkin
+            selectedTheme={selectedTheme}
+            onSelectTheme={selectTheme}
+            canStart={canStart}
+            onStart={pressStart}
+          />
+        </motion.div>
+      ) : skin === "dad" ? (
+        <motion.div
+          key="dad-skin"
+          className="h-dvh w-full"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.28 }}
+        >
+          <DadLandingSkin
             selectedTheme={selectedTheme}
             onSelectTheme={selectTheme}
             canStart={canStart}
